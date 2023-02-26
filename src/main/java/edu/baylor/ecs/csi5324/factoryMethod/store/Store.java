@@ -32,7 +32,6 @@ public abstract class Store {
 	 */
 	final public void selectDistributor(int index) {
 		distributor = getDistributorList().get(index);
-
 	}
 
 	/**
