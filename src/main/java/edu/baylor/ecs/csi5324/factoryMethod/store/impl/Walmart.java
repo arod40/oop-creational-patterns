@@ -6,6 +6,7 @@ import java.util.List;
 import edu.baylor.ecs.csi5324.factoryMethod.cart.Cart;
 import edu.baylor.ecs.csi5324.factoryMethod.cart.CartLineItem;
 import edu.baylor.ecs.csi5324.factoryMethod.distributor.Distributor;
+import edu.baylor.ecs.csi5324.factoryMethod.distributor.impl.UPS;
 import edu.baylor.ecs.csi5324.factoryMethod.distributor.impl.USPS;
 import edu.baylor.ecs.csi5324.factoryMethod.distributor.impl.DPD;
 import edu.baylor.ecs.csi5324.factoryMethod.product.Product;
@@ -16,7 +17,7 @@ public class Walmart extends Store {
 	private List<Distributor> distributorList = null;
 
 	public Walmart() {
-		Distributor[] distributors = { new USPS(), new DPD() };
+		Distributor[] distributors = { new USPS(), new DPD(), new UPS() };
 		distributorList = Arrays.asList(distributors);
 	}
 
