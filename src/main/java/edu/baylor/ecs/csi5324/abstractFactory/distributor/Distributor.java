@@ -2,16 +2,18 @@ package edu.baylor.ecs.csi5324.abstractFactory.distributor;
 
 import java.math.BigDecimal;
 import java.net.URL;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-import com.sun.media.jfxmedia.logging.Logger;
 import edu.baylor.ecs.csi5324.abstractFactory.cart.Cart;
+import edu.baylor.ecs.csi5324.factoryMethod.strategy.impl.PickByPrice;
 
 /**
  * Pluggable store distributor
  *
  */
 public abstract class Distributor {
-	
+	private static final Logger LOGGER = Logger.getLogger( Distributor.class.getName());
 	
 	/**
 	 * @return cost of the shipment
@@ -40,7 +42,7 @@ public abstract class Distributor {
 	 * 
 	 */
 	protected void shipTracing(String name, Cart cart) throws Exception {
-		Logger.logMsg(Logger.INFO, name + " ships (" + cart.getTotal() + ") for charge " + getCharge() + " track at "
-								   + getTrackingLink().toString());
+		LOGGER.log(Level.INFO, name + " ships (" + cart.getTotal() + ") for charge " + getCharge() + " track at "
+							   + getTrackingLink().toString());
 	}
 }

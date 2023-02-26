@@ -1,13 +1,16 @@
 package edu.baylor.ecs.csi5324.abstractFactory.strategy.impl;
 
-import com.sun.media.jfxmedia.logging.Logger;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import edu.baylor.ecs.csi5324.abstractFactory.distributor.Distributor;
+import edu.baylor.ecs.csi5324.abstractFactory.distributor.impl.DHL;
 import edu.baylor.ecs.csi5324.abstractFactory.strategy.Strategy;
 
 import java.math.BigDecimal;
 import java.util.List;
 
 public class PickByPrice extends Strategy {
+  private static final Logger LOGGER = Logger.getLogger(PickByPrice.class.getName());
   public int selectDistributorIndex(List<Distributor> distributors) {
     int index = 0;
     BigDecimal charge = new BigDecimal("0");
@@ -17,7 +20,7 @@ public class PickByPrice extends Strategy {
         index = i;
         charge = distributor.getCharge();
       }
-      Logger.logMsg(Logger.INFO, "* " + distributor.getClass().getSimpleName());
+      LOGGER.log(Level.INFO, "* " + distributor.getClass().getSimpleName());
     }
     return index;
   }

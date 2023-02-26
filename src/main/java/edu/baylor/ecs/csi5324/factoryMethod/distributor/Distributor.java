@@ -3,7 +3,10 @@ package edu.baylor.ecs.csi5324.factoryMethod.distributor;
 import java.math.BigDecimal;
 import java.net.URL;
 
-import com.sun.media.jfxmedia.logging.Logger;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import edu.baylor.ecs.csi5324.abstractFactory.strategy.impl.PickByPrice;
 import edu.baylor.ecs.csi5324.factoryMethod.cart.Cart;
 
 /**
@@ -11,6 +14,7 @@ import edu.baylor.ecs.csi5324.factoryMethod.cart.Cart;
  *
  */
 public abstract class Distributor {
+	private static final Logger LOGGER = Logger.getLogger(Distributor.class.getName());
 	
 	
 	/**
@@ -40,7 +44,7 @@ public abstract class Distributor {
 	 * 
 	 */
 	protected void shipTracing(String name, Cart cart) throws Exception {
-		Logger.logMsg(Logger.INFO, name + " ships (" + cart.getTotal() + ") for charge " + getCharge() + " track at "
-								   + getTrackingLink().toString());
+		LOGGER.log(Level.INFO, name + " ships (" + cart.getTotal() + ") for charge " + getCharge() + " track at "
+							   + getTrackingLink().toString());
 	}
 }

@@ -3,7 +3,10 @@ package edu.baylor.ecs.csi5324.factoryMethod.store.impl;
 import java.util.Arrays;
 import java.util.List;
 
-import com.sun.media.jfxmedia.logging.Logger;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import edu.baylor.ecs.csi5324.abstractFactory.strategy.impl.PickByPrice;
 import edu.baylor.ecs.csi5324.factoryMethod.cart.Cart;
 import edu.baylor.ecs.csi5324.factoryMethod.cart.CartLineItem;
 import edu.baylor.ecs.csi5324.factoryMethod.distributor.Distributor;
@@ -14,6 +17,7 @@ import edu.baylor.ecs.csi5324.factoryMethod.product.Product;
 import edu.baylor.ecs.csi5324.factoryMethod.store.Store;
 
 public class Walmart extends Store {
+	private static final Logger LOGGER = Logger.getLogger(Walmart.class.getName());
 
 	private List<Distributor> distributorList = null;
 
@@ -33,13 +37,13 @@ public class Walmart extends Store {
 
 	@Override
 	protected void hookProcess(Cart order) throws Exception {
-		Logger.logMsg(Logger.INFO, Walmart.class.getSimpleName() + " is happy for your order");
+		LOGGER.log(Level.INFO, Walmart.class.getSimpleName() + " is happy for your order");
 		for (CartLineItem line : order.getOrderList()) {
 			Product product = line.getProduct();
-			Logger.logMsg(Logger.INFO, "+ " + product.getName() + " " + line.getQuantity() + "x " + product.getPrice());
+			LOGGER.log(Level.INFO, "+ " + product.getName() + " " + line.getQuantity() + "x " + product.getPrice());
 
 		}
-		Logger.logMsg(Logger.INFO, "Total: " + order.getTotal());
+		LOGGER.log(Level.INFO, "Total: " + order.getTotal());
 
 	}
 

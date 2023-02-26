@@ -2,12 +2,15 @@ package edu.baylor.ecs.csi5324.factoryMethod.distributor.impl;
 
 import java.math.BigDecimal;
 import java.net.URL;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-import com.sun.media.jfxmedia.logging.Logger;
 import edu.baylor.ecs.csi5324.factoryMethod.cart.Cart;
 import edu.baylor.ecs.csi5324.factoryMethod.distributor.Distributor;
 
 public class DPD extends Distributor {
+
+	private static final Logger LOGGER = Logger.getLogger(DPD.class.getName());
 
 	@Override
 	public BigDecimal getCharge() {
@@ -29,8 +32,8 @@ public class DPD extends Distributor {
 	@Override
 	public void ship(Cart order) throws Exception {
 		shipTracing("DPD", order);
-		Logger.logMsg(Logger.INFO, "# Pickup at vendor");
-		Logger.logMsg(Logger.INFO, "# Send to Customer");
+		LOGGER.log(Level.INFO, "# Pickup at vendor");
+		LOGGER.log(Level.INFO, "# Send to Customer");
 	}
 
 }

@@ -1,6 +1,9 @@
 package edu.baylor.ecs.csi5324.factoryMethod.distributor.impl;
 
-import com.sun.media.jfxmedia.logging.Logger;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import edu.baylor.ecs.csi5324.abstractFactory.strategy.impl.PickByPrice;
 import edu.baylor.ecs.csi5324.factoryMethod.cart.Cart;
 import edu.baylor.ecs.csi5324.factoryMethod.distributor.Distributor;
 
@@ -8,6 +11,7 @@ import java.math.BigDecimal;
 import java.net.URL;
 
 public class UPS extends Distributor {
+  private static final Logger LOGGER = Logger.getLogger(UPS.class.getName());
   @Override
   public BigDecimal getCharge() {
     return new BigDecimal(160);
@@ -26,7 +30,7 @@ public class UPS extends Distributor {
   @Override
   public void ship(Cart cart) throws Exception {
     shipTracing("USPS", cart);
-    Logger.logMsg(Logger.INFO, "# Pickup at vendor");
-    Logger.logMsg(Logger.INFO, "# Send to Customer");
+    LOGGER.log(Level.INFO, "# Pickup at vendor");
+    LOGGER.log(Level.INFO, "# Send to Customer");
   }
 }
