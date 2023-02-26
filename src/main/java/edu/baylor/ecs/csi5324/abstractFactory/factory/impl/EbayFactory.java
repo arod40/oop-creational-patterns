@@ -21,7 +21,7 @@ public class EbayFactory extends AbstractFactory {
   }
 
   @Override
-  public Product makeProduct(String name) {
+  protected Product doMakeProduct(String name) {
     return new EbayProduct(name);
   }
 

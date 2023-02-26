@@ -16,7 +16,6 @@ import org.junit.jupiter.api.TestInstance;
 import edu.baylor.ecs.csi5324.abstractFactory.cart.Cart;
 import edu.baylor.ecs.csi5324.abstractFactory.product.Product;
 import edu.baylor.ecs.csi5324.abstractFactory.store.Store;
-import edu.baylor.ecs.csi5324.abstractFactory.store.impl.Ebay;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class UserTest {
