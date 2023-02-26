@@ -1,7 +1,9 @@
 package edu.baylor.ecs.csi5324.builder.solution;
 
+import java.io.FileNotFoundException;
+
 public class ContactDirectory {
-  public class Contact{
+  public static class Contact{
     String name;
     String email;
     String phone;
