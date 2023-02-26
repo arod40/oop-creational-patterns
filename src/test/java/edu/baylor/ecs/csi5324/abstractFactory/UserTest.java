@@ -5,6 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.math.BigDecimal;
 
+import edu.baylor.ecs.csi5324.abstractFactory.factory.AbstractFactory;
+import edu.baylor.ecs.csi5324.abstractFactory.factory.impl.EbayFactory;
 import edu.baylor.ecs.csi5324.abstractFactory.strategy.Strategy;
 import edu.baylor.ecs.csi5324.abstractFactory.strategy.impl.PickByRank;
 import org.junit.jupiter.api.BeforeAll;
@@ -18,6 +20,7 @@ import edu.baylor.ecs.csi5324.abstractFactory.store.impl.Ebay;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class UserTest {
+	protected AbstractFactory factory;
 
 	private Product soap;
 	private Product anotherSoap;
@@ -25,32 +28,29 @@ public class UserTest {
 	private Product book;
 	private Product lego;
 
-	// pick a store
-	protected Store makeStore() {
-		// Walmart();
-		return new Ebay();
-	}
 
-	protected Product makeProduct(String name) {
-		return new Product(name);
-	}
+	protected void makeFactory(){
+		// I put Ebay factory by default so that it runs, but the idea is that each client class
+		// defines its own factory.
+		factory = new EbayFactory();
+	};
 
 	@BeforeAll
 	public void setUp() {
-		// pick product type
-		// what if ebay product?
+		makeFactory();
 
-		soap = makeProduct("Soap").init("Nice protocol", new BigDecimal(30));
-		anotherSoap = makeProduct("Soap").init("Nice protocol", new BigDecimal(30));
-		tabaco = makeProduct("Tabaco").init("Dont smoke", new BigDecimal(20));
-		book = makeProduct("Book").init("Read me", new BigDecimal(25));
-		lego = makeProduct("Lego").init("Play me", new BigDecimal(35));
+		soap = factory.makeProduct("Soap").init("Nice protocol", new BigDecimal(30));
+		anotherSoap = factory.makeProduct("Soap").init("Nice protocol", new BigDecimal(30));
+		tabaco = factory.makeProduct("Tabaco").init("Dont smoke", new BigDecimal(20));
+		book = factory.makeProduct("Book").init("Read me", new BigDecimal(25));
+		lego = factory.makeProduct("Lego").init("Play me", new BigDecimal(35));
 
 	}
 
 	@Test
 	public void test() throws Exception {
-		Store store = makeStore();
+
+		Store store = factory.makeStore();
 		Cart cart = makeAnOrder();
 		selectDistributorBasedOnRank(store);
 
@@ -62,7 +62,7 @@ public class UserTest {
 	@Test
 	public void testFail() throws Exception {
 
-		Store store = makeStore();
+		Store store = factory.makeStore();
 		Cart cart = makeAnOrder();
 		// try to process
 		assertThrows(Exception.class, () -> {

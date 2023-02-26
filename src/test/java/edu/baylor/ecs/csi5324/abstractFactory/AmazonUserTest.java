@@ -1,6 +1,8 @@
 package edu.baylor.ecs.csi5324.abstractFactory;
 
 import edu.baylor.ecs.csi5324.abstractFactory.cart.Cart;
+import edu.baylor.ecs.csi5324.abstractFactory.factory.impl.AmazonFactory;
+import edu.baylor.ecs.csi5324.abstractFactory.factory.impl.EbayFactory;
 import edu.baylor.ecs.csi5324.abstractFactory.product.Product;
 import edu.baylor.ecs.csi5324.abstractFactory.product.impl.AmazonProduct;
 import edu.baylor.ecs.csi5324.abstractFactory.product.impl.EbayProduct;
@@ -14,15 +16,8 @@ import java.math.BigDecimal;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class AmazonUserTest extends UserTest {
-
-  // pick a store
-  protected Store makeStore() {
-    // Walmart();
-    return new Amazon();
-  }
-
-  protected Product makeProduct(String name) {
-    return new AmazonProduct(name);
+  protected void makeFactory() {
+    this.factory = new AmazonFactory();
   }
 
   @Test
