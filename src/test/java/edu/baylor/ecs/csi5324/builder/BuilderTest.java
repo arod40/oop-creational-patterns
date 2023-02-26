@@ -2,13 +2,12 @@ package edu.baylor.ecs.csi5324.builder;
 
 import edu.baylor.ecs.csi5324.builder.solution.ContactDirectory;
 import edu.baylor.ecs.csi5324.builder.solution.ContactDirectoryCSVImporter;
+import edu.baylor.ecs.csi5324.builder.solution.ContactDirectoryExcelExporter;
 import edu.baylor.ecs.csi5324.builder.solution.ContactDirectoryXMLExporter;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
 
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.StringWriter;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
@@ -44,6 +43,17 @@ class BuilderTest {
 		ContactDirectoryCSVImporter csvImporter = new ContactDirectoryCSVImporter(csvPath);
 
 		// * All from the below
+		// XLS (Excel)
+		ContactDirectoryExcelExporter xlsExporter = new ContactDirectoryExcelExporter();
+		directory.construct(csvImporter, xlsExporter);
+		try {
+			FileOutputStream outputStream = new FileOutputStream("src/test/resources/ContactList.xlsx");
+			xlsExporter.buildXLSX(outputStream);
+		} catch (FileNotFoundException e) {
+			throw new RuntimeException(e);
+		}
+
+
 		// consider ExcelBuilder (Apache POI)
 		// consider PDFBuilder (Apache PDF Box)
 		// consider RTFBuilder (Apache FOP)
@@ -68,5 +78,4 @@ class BuilderTest {
 		// consider PPTBuilder (https://www.baeldung.com/apache-poi-slideshow/)
 		// consider DOCBuilder (https://www.baeldung.com/docx4j)
 	}
-
 }
