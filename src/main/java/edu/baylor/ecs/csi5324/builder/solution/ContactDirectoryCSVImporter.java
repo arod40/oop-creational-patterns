@@ -15,7 +15,7 @@ public class ContactDirectoryCSVImporter implements ContactDirectory.Importer {
   private Reader in;
   private Iterable<CSVRecord> records;
   String[] HEADERS = { "name", "email", "phone"};
-  public ContactDirectoryCSVImporter(String csvPath) throws IOException {
+  public ContactDirectoryCSVImporter(String csvPath) {
     this.csvPath = csvPath;
   }
   private ContactDirectory.Contact _mapCsvRecordToContact(CSVRecord record){
@@ -33,9 +33,8 @@ public class ContactDirectoryCSVImporter implements ContactDirectory.Importer {
   }
 
   public void open() {
-    Reader in = null;
     try {
-      in = new FileReader(csvPath);
+      this.in = new FileReader(csvPath);
     } catch (FileNotFoundException e) {
       throw new RuntimeException("The CSV file provided could not be opened.");
     }
