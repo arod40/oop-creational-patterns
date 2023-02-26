@@ -18,6 +18,8 @@ public class Amazon  extends Store {
     distributorList = Arrays.asList(distributors);
   }
 
+  public Amazon(List<Distributor> distributorList) { this.distributorList = distributorList; }
+
   @Override
   public List<Distributor> getDistributorList() { return distributorList; }
 }
