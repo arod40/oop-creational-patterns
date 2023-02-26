@@ -14,7 +14,7 @@ public class AmazonProduct  extends Product {
 
   public AmazonProduct init(String describtion, BigDecimal price) {
     super.init(describtion, price);
-    this.setPrice(price.multiply(new BigDecimal("0.1")));
+    this.setPrice(price.multiply(new BigDecimal("0.9")));
     return this;
   }
 }

@@ -82,15 +82,14 @@ public class UserTest {
 		assertTrue(cart.getTotal().equals(new BigDecimal("190")));
 	}
 
-	private Cart makeAnOrder() {
+	protected Cart makeAnOrder() {
 		// make an order
 		Cart cart = new Cart();
-		cart.addLine(soap, 2); // TODO change to fluentInterface
-		cart.addLine(anotherSoap, 1);
-		cart.addLine(tabaco, 2);
-		cart.addLine(lego, 1);
-		cart.addLine(book, 1);
-		return cart;
+		return cart.addLine(soap, 2)
+				.addLine(anotherSoap, 1)
+				.addLine(tabaco, 2)
+				.addLine(lego, 1)
+				.addLine(book, 1);
 	}
 
 	private void selectDistributorBasedOnRank(Store store) {
