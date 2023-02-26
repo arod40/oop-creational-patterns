@@ -1,5 +1,6 @@
 package edu.baylor.ecs.csi5324.factoryMethod.distributor.impl;
 
+import com.sun.media.jfxmedia.logging.Logger;
 import edu.baylor.ecs.csi5324.factoryMethod.cart.Cart;
 import edu.baylor.ecs.csi5324.factoryMethod.distributor.Distributor;
 
@@ -25,7 +26,7 @@ public class UPS extends Distributor {
   @Override
   public void ship(Cart cart) throws Exception {
     shipTracing("USPS", cart);
-    System.out.println("# Pickup at vendor");
-    System.out.println("# Send to Customer");
+    Logger.logMsg(Logger.INFO, "# Pickup at vendor");
+    Logger.logMsg(Logger.INFO, "# Send to Customer");
   }
 }

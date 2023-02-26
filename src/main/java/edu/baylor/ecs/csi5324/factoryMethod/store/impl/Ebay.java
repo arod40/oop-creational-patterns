@@ -3,6 +3,7 @@ package edu.baylor.ecs.csi5324.factoryMethod.store.impl;
 import java.util.Arrays;
 import java.util.List;
 
+import com.sun.media.jfxmedia.logging.Logger;
 import edu.baylor.ecs.csi5324.factoryMethod.cart.Cart;
 import edu.baylor.ecs.csi5324.factoryMethod.cart.CartLineItem;
 import edu.baylor.ecs.csi5324.factoryMethod.distributor.Distributor;
@@ -33,18 +34,18 @@ public class Ebay extends Store {
 
 	@Override
 	protected void hookProcess(Cart order) throws Exception {
-		System.out.println(Ebay.class.getSimpleName() + " is happy for your order");
+		Logger.logMsg(Logger.INFO, Ebay.class.getSimpleName() + " is happy for your order");
 		for (CartLineItem line : order.getOrderList()) {
 			Product product = line.getProduct();
-			System.out.println("* " + product.getName() + " " + line.getQuantity() + "x " + product.getPrice());
+			Logger.logMsg(Logger.INFO, "* " + product.getName() + " " + line.getQuantity() + "x " + product.getPrice());
 			if (product instanceof EbayProduct) {
-				System.out.println("- Rank... " + ((EbayProduct) product).getRank());
+				Logger.logMsg(Logger.INFO, "- Rank... " + ((EbayProduct) product).getRank());
 			} else {
 				throw new Exception("Not a eBay product");
 			}
 
 		}
-		System.out.println("Total: " + order.getTotal());
+		Logger.logMsg(Logger.INFO, "Total: " + order.getTotal());
 
 	}
 

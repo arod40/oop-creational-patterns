@@ -1,5 +1,6 @@
 package edu.baylor.ecs.csi5324.factoryMethod.strategy.impl;
 
+import com.sun.media.jfxmedia.logging.Logger;
 import edu.baylor.ecs.csi5324.factoryMethod.distributor.Distributor;
 import edu.baylor.ecs.csi5324.factoryMethod.strategy.Strategy;
 
@@ -16,8 +17,7 @@ public class PickByPrice extends Strategy {
         index = i;
         charge = distributor.getCharge();
       }
-      // TODO use logger!
-      System.out.println("* " + distributor.getClass().getSimpleName());
+      Logger.logMsg(Logger.INFO, "* " + distributor.getClass().getSimpleName());
     }
     return index;
   }

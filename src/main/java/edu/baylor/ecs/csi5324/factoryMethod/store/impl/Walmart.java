@@ -3,6 +3,7 @@ package edu.baylor.ecs.csi5324.factoryMethod.store.impl;
 import java.util.Arrays;
 import java.util.List;
 
+import com.sun.media.jfxmedia.logging.Logger;
 import edu.baylor.ecs.csi5324.factoryMethod.cart.Cart;
 import edu.baylor.ecs.csi5324.factoryMethod.cart.CartLineItem;
 import edu.baylor.ecs.csi5324.factoryMethod.distributor.Distributor;
@@ -32,13 +33,13 @@ public class Walmart extends Store {
 
 	@Override
 	protected void hookProcess(Cart order) throws Exception {
-		System.out.println(Walmart.class.getSimpleName() + " is happy for your order");
+		Logger.logMsg(Logger.INFO, Walmart.class.getSimpleName() + " is happy for your order");
 		for (CartLineItem line : order.getOrderList()) {
 			Product product = line.getProduct();
-			System.out.println("+ " + product.getName() + " " + line.getQuantity() + "x " + product.getPrice());
+			Logger.logMsg(Logger.INFO, "+ " + product.getName() + " " + line.getQuantity() + "x " + product.getPrice());
 
 		}
-		System.out.println("Total: " + order.getTotal());
+		Logger.logMsg(Logger.INFO, "Total: " + order.getTotal());
 
 	}
 

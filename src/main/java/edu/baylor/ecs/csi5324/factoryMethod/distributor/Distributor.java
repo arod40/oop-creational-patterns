@@ -3,6 +3,7 @@ package edu.baylor.ecs.csi5324.factoryMethod.distributor;
 import java.math.BigDecimal;
 import java.net.URL;
 
+import com.sun.media.jfxmedia.logging.Logger;
 import edu.baylor.ecs.csi5324.factoryMethod.cart.Cart;
 
 /**
@@ -39,8 +40,7 @@ public abstract class Distributor {
 	 * 
 	 */
 	protected void shipTracing(String name, Cart cart) throws Exception {
-		// TODO replace with Logger!
-		System.out.println(name + " ships (" + cart.getTotal() + ") for charge " + getCharge() + " track at "
-				+ getTrackingLink().toString());
+		Logger.logMsg(Logger.INFO, name + " ships (" + cart.getTotal() + ") for charge " + getCharge() + " track at "
+								   + getTrackingLink().toString());
 	}
 }
