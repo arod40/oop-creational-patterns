@@ -3,7 +3,6 @@ package edu.baylor.ecs.csi5324.builder;
 import com.google.common.io.Files;
 import edu.baylor.ecs.csi5324.builder.solution.*;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
@@ -70,7 +69,19 @@ class BuilderTest {
 		}
 		compareFiles("src/test/resources/ContactList.xml", "src/test/resources/ContactListOracle.xml");
 
-		// HTML
+		// HTML\
+		ContactDirectoryHTMLExporter htmlExporter = new ContactDirectoryHTMLExporter();
+		directory.construct(csvImporter, htmlExporter);
+		try {
+			OutputStreamWriter outputStream = new OutputStreamWriter(new FileOutputStream("src/test/resources/ContactList.html"));
+			htmlExporter.buildHTML(outputStream);
+			outputStream.close();
+		} catch (FileNotFoundException e) {
+			throw new RuntimeException(e);
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
+		compareFiles("src/test/resources/ContactList.html", "src/test/resources/ContactListOracle.html");
 	}
 
 	private void compareFiles(String f1, String f2) {
