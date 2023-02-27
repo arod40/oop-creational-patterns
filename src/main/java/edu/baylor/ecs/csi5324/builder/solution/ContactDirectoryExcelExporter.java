@@ -1,13 +1,10 @@
 package edu.baylor.ecs.csi5324.builder.solution;
 
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.*;
-import org.apache.poi.xssf.usermodel.XSSFFont;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
 
 public class ContactDirectoryExcelExporter implements ContactDirectory.Exporter{
   private Workbook workbook = new XSSFWorkbook();

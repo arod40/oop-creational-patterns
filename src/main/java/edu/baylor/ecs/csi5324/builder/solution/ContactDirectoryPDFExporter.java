@@ -1,7 +1,6 @@
 package edu.baylor.ecs.csi5324.builder.solution;
 
 import java.io.IOException;
-import java.io.OutputStream;
 
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;

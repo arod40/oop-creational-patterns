@@ -14,26 +14,6 @@ class BuilderTest {
 
 	@Test
 	void test() {
-		/**
-		 * This needs a lot to improve
-		 */
-//		Contact c = null;
-//
-//		c = new Contact(new ContactSwingImporter());
-////				c = new Contact(new ContactTextImporter());
-//		System.out.println("Contact: " + c);
-//		ContactHTMLExporter html = new ContactHTMLExporter();
-//		c.export(html);
-//		System.out.println("HTML:");
-//		System.out.println(html);
-//		ContactCSVExporter csv = new ContactCSVExporter();
-//		c.export(csv);
-//		System.out.println("CSV:\n" + csv);
-//		System.out.println("Starting gui display...");
-//		GUIExporter gui = new GUIExporter();
-//		c.export(gui);
-//		new SwingDisplay(gui.getJPanel());
-
 		// ContactDirectory (Director role in Builder pattern)
 		ContactDirectory directory = new ContactDirectory();
 
@@ -41,7 +21,6 @@ class BuilderTest {
 		String csvPath = "src/test/resources/ContactList.csv";
 		ContactDirectoryCSVImporter csvImporter = new ContactDirectoryCSVImporter(csvPath);
 
-		// * All from the below
 		// XLSX (Excel)
 		ContactDirectoryExcelExporter xlsExporter = new ContactDirectoryExcelExporter();
 		directory.construct(csvImporter, xlsExporter);
@@ -64,12 +43,24 @@ class BuilderTest {
 
 
 		// consider RTFBuilder (Apache FOP)
+		ContactDirectoryRTFExporter rtfExporter = new ContactDirectoryRTFExporter();
+		directory.construct(csvImporter, rtfExporter);
+		try {
+			FileOutputStream outputStream = new FileOutputStream("src/test/resources/ContactList.rtf");
+			rtfExporter.buildRTF(outputStream);
+			outputStream.close();
+		} catch (FileNotFoundException e) {
+			throw new RuntimeException(e);
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
+		compareFiles("src/test/resources/ContactList.rtf", "src/test/resources/ContactListOracle.rtf");
 
 		// XML
 		ContactDirectoryXMLExporter xmlExporter = new ContactDirectoryXMLExporter();
 		directory.construct(csvImporter, xmlExporter);
 		try {
-			OutputStreamWriter outputStream = new OutputStreamWriter(new FileOutputStream("src/test/resources/ContactList.xlsx"));
+			OutputStreamWriter outputStream = new OutputStreamWriter(new FileOutputStream("src/test/resources/ContactList.xml"));
 			xmlExporter.buildXML(outputStream);
 			outputStream.close();
 		} catch (FileNotFoundException e) {
@@ -79,14 +70,7 @@ class BuilderTest {
 		}
 		compareFiles("src/test/resources/ContactList.xml", "src/test/resources/ContactListOracle.xml");
 
-
-
-		// * Pick on of these four
-		// consider HTMLBuilder
-		// consider MDBuilder (MarkDown http://markdown.tautua.org/)
-		// consider PPTBuilder (https://www.baeldung.com/apache-poi-slideshow/)
-		// consider DOCBuilder (https://www.baeldung.com/docx4j)
-
+		// HTML
 	}
 
 	private void compareFiles(String f1, String f2) {
