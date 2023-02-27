@@ -2,6 +2,7 @@ package edu.baylor.ecs.csi5324.prototype;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class Executive extends Person {
 	String position;
@@ -15,6 +16,16 @@ public class Executive extends Person {
 	public Executive(String firstName, String lastName, int age, Company company, String position) {
 		super(firstName, lastName, age, company);
 		this.position = position;
+	}
+
+	public Executive(Executive other) {
+		super(other);
+		this.position = other.position;
+		this.sharesCar = other.sharesCar.clone();
+
+		// I am not cloning this level to avoid cycles
+		// (if a person commands itself, for example)
+		this.commands = new HashSet<>(other.commands);
 	}
 
 	public void setPosition(String position) {
@@ -46,5 +57,27 @@ public class Executive extends Person {
 			out +="# "+p.toString()+"\n";
 		}
 		return out;
+	}
+
+	public Person clone() {
+		return new Executive(this);
+	}
+
+	public boolean checkClone(Person other) {
+		if (!super.checkClone(other)) return false;
+		Executive otherExecutive;
+		try{
+			otherExecutive = (Executive) other;
+		}
+		catch (Exception e){
+			return false;
+		}
+
+		return otherExecutive.position == position
+			   && otherExecutive.sharesCar.checkClone(sharesCar)
+			   // By the same token as before, here I only check if the references match
+			   // to avoid cycles.
+			   && otherExecutive.commands.containsAll(commands)
+			   && commands.containsAll(otherExecutive.commands);
 	}
 }

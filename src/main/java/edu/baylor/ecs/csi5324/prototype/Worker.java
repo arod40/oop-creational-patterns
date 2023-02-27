@@ -8,6 +8,11 @@ public class Worker extends Person {
 		this.salary = salary;
 	}
 
+	public Worker(Worker other){
+		super(other);
+		this.salary = other.salary;
+	}
+
 	public int getSalary() {
 		return salary;
 	}
@@ -20,5 +25,21 @@ public class Worker extends Person {
 	public String toString() {
 		return "Worker [salary=" + salary + ", firstName=" + firstName + ", lastName=" + lastName + ", age=" + age
 				+ ", company=" + company.getName() + "]";
+	}
+
+	public Person clone() {
+		return new Worker(this);
+	}
+
+	public boolean checkClone(Person other) {
+		if (!super.checkClone(other)) return false;
+		Worker otherCleaner;
+		try{
+			otherCleaner = (Worker) other;
+		}
+		catch (Exception e){
+			return false;
+		}
+		return otherCleaner.salary == salary;
 	}
 }

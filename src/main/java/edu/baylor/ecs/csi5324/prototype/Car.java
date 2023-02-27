@@ -7,6 +7,11 @@ public class Car {
 		this.name = name;
 	}
 
+	public Car(Car other){
+		super();
+		this.name = other.name;
+	}
+
 	private String name;
 
 	public String getName() {
@@ -20,5 +25,13 @@ public class Car {
 	@Override
 	public String toString() {
 		return "Car [name=" + name + "]";
+	}
+
+	public Car clone(){
+		return new Car(this);
+	}
+
+	public boolean checkClone(Car other) {
+		return other != this && name == other.name;
 	}
 }

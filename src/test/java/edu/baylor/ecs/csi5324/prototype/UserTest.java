@@ -3,6 +3,12 @@ package edu.baylor.ecs.csi5324.prototype;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.Comparator;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import static org.junit.jupiter.api.Assertions.*;
+
 
 public class UserTest {
 
@@ -46,11 +52,9 @@ public class UserTest {
 		//print
 		System.out.println("***clonned");
 		System.out.println(clonned);
-		
-		// TODO
-		// assert the objects are not the same
-		// assert the values are the same
 
+		assertTrue(company != clonned);
+		assertTrue(company.checkClone(clonned));
 	}
 
 }

@@ -36,10 +36,31 @@ public class Person {
 		this.age = age;
 		this.company = company;
 	}
+
+	public Person(Person other){
+		super();
+		this.firstName = other.firstName;
+		this.lastName = other.lastName;
+		this.age = other.age;
+		// I copy the reference, to avoid cycles.
+		this.company = other.company;
+	}
 	@Override
 	public String toString() {
 		return "Person [firstName=" + firstName + ", lastName=" + lastName + ", age=" + age + ", works for company=" + company.getName()
 				+ "]";
 	}
-	
+
+	public Person clone() {
+		return new Person(this);
+	}
+
+	public boolean checkClone(Person other) {
+		return other != this
+			   && other.firstName == firstName
+			   && other.lastName == lastName
+			   && other.age == age
+			   // Here I only check the reference matches, to avoid cycles.
+			   && other.company == company;
+	}
 }
