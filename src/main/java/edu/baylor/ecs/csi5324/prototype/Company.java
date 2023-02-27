@@ -90,13 +90,16 @@ public class Company {
 						.thenComparing(Person::getLastName)
 						.thenComparing(Person::getAge)).collect(Collectors.toList());
 		List<Person> myMembers = members.stream().sorted(
-				Comparator.comparing(Person::getFirstName)).collect(
-				Collectors.toList());
+				Comparator.comparing(Person::getFirstName)
+						.thenComparing(Person::getLastName)
+						.thenComparing(Person::getAge)).collect(Collectors.toList());
 		if (otherMembers.size() != myMembers.size()) return false;
 		for (int i = 0; i< myMembers.size(); i++){
 			Person myMember = myMembers.get(i);
 			Person otherMember = otherMembers.get((i));
-			if (myMember == otherMember || !myMember.checkClone(otherMember)) return false;
+			if (myMember == otherMember || !myMember.checkClone(otherMember)) {
+				return false;
+			}
 		}
 		return true;
 	}

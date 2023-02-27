@@ -56,5 +56,4 @@ public class UserTest {
 		assertTrue(company != clonned);
 		assertTrue(company.checkClone(clonned));
 	}
-
 }
