@@ -1,15 +1,14 @@
 package edu.baylor.ecs.csi5324.builder;
 
-import edu.baylor.ecs.csi5324.builder.solution.ContactDirectory;
-import edu.baylor.ecs.csi5324.builder.solution.ContactDirectoryCSVImporter;
-import edu.baylor.ecs.csi5324.builder.solution.ContactDirectoryExcelExporter;
-import edu.baylor.ecs.csi5324.builder.solution.ContactDirectoryXMLExporter;
+import com.google.common.io.Files;
+import edu.baylor.ecs.csi5324.builder.solution.*;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import org.junit.jupiter.api.Test;
 
 import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 
 class BuilderTest {
 
@@ -43,33 +42,43 @@ class BuilderTest {
 		ContactDirectoryCSVImporter csvImporter = new ContactDirectoryCSVImporter(csvPath);
 
 		// * All from the below
-		// XLS (Excel)
+		// XLSX (Excel)
 		ContactDirectoryExcelExporter xlsExporter = new ContactDirectoryExcelExporter();
 		directory.construct(csvImporter, xlsExporter);
 		try {
 			FileOutputStream outputStream = new FileOutputStream("src/test/resources/ContactList.xlsx");
 			xlsExporter.buildXLSX(outputStream);
+			outputStream.close();
 		} catch (FileNotFoundException e) {
 			throw new RuntimeException(e);
+		} catch (IOException e) {
+			throw new RuntimeException(e);
 		}
+//		compareFiles("src/test/resources/ContactList.xlsx", "src/test/resources/ContactListOracle.xlsx");
+
+		// PDF
+		ContactDirectoryPDFExporter pdfExporter = new ContactDirectoryPDFExporter(2, 20);
+		directory.construct(csvImporter, pdfExporter);
+		pdfExporter.buildPDF("src/test/resources/ContactList.pdf");
+//		compareFiles("src/test/resources/ContactList.pdf", "src/test/resources/ContactListOracle.pdf");
 
 
-		// consider ExcelBuilder (Apache POI)
-		// consider PDFBuilder (Apache PDF Box)
 		// consider RTFBuilder (Apache FOP)
 
 		// XML
 		ContactDirectoryXMLExporter xmlExporter = new ContactDirectoryXMLExporter();
 		directory.construct(csvImporter, xmlExporter);
-		StringWriter writer = new StringWriter();
-		xmlExporter.buildXML(writer);
-		String xmlProducedContent = writer.toString();
 		try {
-			String xmlOracleContent = new String(Files.readAllBytes(Paths.get("src/test/resources/ContactList.xml")));
-			assertEquals(xmlProducedContent, xmlOracleContent);
+			OutputStreamWriter outputStream = new OutputStreamWriter(new FileOutputStream("src/test/resources/ContactList.xlsx"));
+			xmlExporter.buildXML(outputStream);
+			outputStream.close();
+		} catch (FileNotFoundException e) {
+			throw new RuntimeException(e);
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
+		compareFiles("src/test/resources/ContactList.xml", "src/test/resources/ContactListOracle.xml");
+
 
 
 		// * Pick on of these four
@@ -77,5 +86,16 @@ class BuilderTest {
 		// consider MDBuilder (MarkDown http://markdown.tautua.org/)
 		// consider PPTBuilder (https://www.baeldung.com/apache-poi-slideshow/)
 		// consider DOCBuilder (https://www.baeldung.com/docx4j)
+
+	}
+
+	private void compareFiles(String f1, String f2) {
+		File file1 = new File(f1);
+		File file2 = new File(f2);
+		try {
+			assertTrue(Files.equal(file1, file2));
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
 	}
 }
